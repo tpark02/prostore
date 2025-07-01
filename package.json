@@ -1,5 +1,6 @@
 {
   "name": "prostore",
+  "type": "module",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -31,16 +32,19 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@eslint/js": "^9.30.0",
     "@prisma/client": "^6.10.1",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/ws": "^8.18.1",
+    "@typescript-eslint/eslint-plugin": "^8.35.1",
+    "@typescript-eslint/parser": "^8.35.1",
     "autoprefixer": "^10.4.21",
     "bufferutil": "^4.0.9",
-    "eslint": "^9",
-    "eslint-config-next": "15.3.4",
+    "eslint": "^9.30.0",
+    "eslint-config-next": "^15.3.4",
     "postcss": "^8.5.6",
     "prisma": "^6.10.1",
     "typescript": "^5"
