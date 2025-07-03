@@ -20,7 +20,10 @@ export const authConfig = {
       const { pathname } = request.nextUrl;
 
       // Check if user is not authenticated and accessing a protected path
-      if (!auth && protectedPaths.some((p) => p.test(pathname))) return false;
+      if (!auth && protectedPaths.some((p) => p.test(pathname))) {
+        console.log(3);
+        return false;
+      }
 
       // Check for session cart cookie
       if (!request.cookies.get('sessionCartId')) {
@@ -39,7 +42,7 @@ export const authConfig = {
 
         return response;
       }
-
+      console.log(4);
       return true;
     },
   },
