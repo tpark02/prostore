@@ -21,7 +21,6 @@ export const authConfig = {
 
       // Check if user is not authenticated and accessing a protected path
       if (!auth && protectedPaths.some((p) => p.test(pathname))) {
-        console.log(3);
         return false;
       }
 
@@ -42,7 +41,6 @@ export const authConfig = {
 
         return response;
       }
-      console.log(4);
       return true;
     },
   },
