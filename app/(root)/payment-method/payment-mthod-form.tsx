@@ -37,6 +37,7 @@ const PaymentMethodForm = ({
 
   const [isPending, startTransition] = useTransition();
   const onSubmit = async (values: z.infer<typeof paymentMethodSchema>) => {
+    console.log('payment method ', values);
     startTransition(async () => {
       const res = await updateUserPaymentMethod(values);
       if (!res.success) {

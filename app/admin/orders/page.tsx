@@ -1,28 +1,36 @@
-import { Metadata } from 'next';
-import { getMyOrders } from '@/lib/actions/order.actions';
-import { formatCurrency, formatDateTime, formatId } from '@/lib/utils';
-import Link from 'next/link';
+import { auth } from '@/auth';
+import Pagination from '@/components/shared/pagination';
+import { Button } from '@/components/ui/button';
 import {
   Table,
-  TableHeader,
-  TableHead,
-  TableRow,
   TableBody,
   TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from '@/components/ui/table';
-import Pagination from '@/components/shared/pagination';
+import { deleteOrder, getAllOrders } from '@/lib/actions/order.actions';
+import { formatCurrency, formatDateTime, formatId } from '@/lib/utils';
+import { Metadata } from 'next';
+import Link from 'next/link';
+import DeleteDialog from '@/components/shared/delete-dialog';
 
 export const metadata: Metadata = {
-  title: 'My Orders',
+  title: 'Admin Orders',
 };
 
-const OrdersPage = async (props: {
+const AdminOrdersPage = async (props: {
   searchParams: Promise<{ page: string }>;
 }) => {
-  console.log('search params - ', props);
-  const { page } = await props.searchParams;
-  const orders = await getMyOrders({ page: Number(page) || 1 });
-  console.log('orders - ', orders);
+  const { page = '1' } = await props.searchParams;
+  const session = await auth();
+  if (session?.user.role !== 'admin') throw new Error('User is not authorized');
+
+  const orders = await getAllOrders({
+    page: Number(page),
+    limit: 2,
+  });
+
   return (
     <div className="space-y-2">
       <h2 className="h2-bold">Orders</h2>
@@ -57,9 +65,11 @@ const OrdersPage = async (props: {
                     : 'Not Paid'}
                 </TableCell>
                 <TableCell>
-                  <Link href={`/order/${order.id}`}>
-                    <span className="px-2">Details</span>
-                  </Link>
+                  <Button asChild variant="outline" size="sm">
+                    <Link href={`/order/${order.id}`}>Details</Link>
+                  </Button>
+                  {/* Delete Button */}
+                  <DeleteDialog id={order.id} action={deleteOrder} />
                 </TableCell>
               </TableRow>
             ))}
@@ -76,4 +86,4 @@ const OrdersPage = async (props: {
   );
 };
 
-export default OrdersPage;
+export default AdminOrdersPage;

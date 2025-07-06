@@ -1,44 +1,45 @@
 // eslint.config.js
-import js from "@eslint/js";
-import tsPlugin from "@typescript-eslint/eslint-plugin";
-import tsParser from "@typescript-eslint/parser";
+import js from '@eslint/js';
+import tsPlugin from '@typescript-eslint/eslint-plugin';
+import tsParser from '@typescript-eslint/parser';
 
 export default [
   js.configs.recommended,
   {
-    files: ["**/*.ts", "**/*.tsx"],
+    files: ['**/*.ts', '**/*.tsx'],
     languageOptions: {
       parser: tsParser,
       parserOptions: {
-        project: "./tsconfig.json",
+        project: './tsconfig.json',
         tsconfigRootDir: process.cwd(),
       },
       globals: {
-        window: "readonly",
-        console: "readonly",
-        React: "readonly",
-        process: "readonly", // for Node.js environment variables
+        window: 'readonly',
+        console: 'readonly',
+        React: 'readonly',
+        process: 'readonly', // for Node.js environment variables
       },
     },
     plugins: {
-      "@typescript-eslint": tsPlugin,
+      '@typescript-eslint': tsPlugin,
     },
     rules: {
-      "@typescript-eslint/no-unused-vars": [
-        "warn",
-        { argsIgnorePattern: "^_" },
+      'no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-vars': [
+        'warn',
+        { argsIgnorePattern: '^_' },
       ],
-      "@typescript-eslint/no-explicit-any": "off",
-      "@typescript-eslint/no-require-imports": "off",
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-require-imports': 'off',
     },
   },
   {
     ignores: [
-      "node_modules",
-      ".next",
-      "dist",
-      "lib/generated/**",
-      "prisma/generated/**",
+      'node_modules',
+      '.next',
+      'dist',
+      'lib/generated/**',
+      'prisma/generated/**',
     ],
   },
 ];

@@ -26,14 +26,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       },
       async authorize(credentials) {
         if (credentials == null) return null;
-        console.log(1);
         // Find user in database
         const user = await prisma.user.findFirst({
           where: {
             email: credentials.email as string,
           },
         });
-        console.log(2);
         // Check if user exists and password is correct
         if (user && user.password) {
           const isMatch = compareSync(
