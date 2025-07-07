@@ -74,7 +74,7 @@ const ProductForm = ({
       }
 
       const res = await updateProduct({ ...values, id: productId });
-      if (!res) {
+      if (!res.success) {
         toast({
           variant: 'destructive',
           description: res.message,
