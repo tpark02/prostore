@@ -71,7 +71,9 @@ export async function deleteProducts(id: string) {
 }
 
 // create a product
-export async function createProduct(data: z.infer<typeof insertProductSchema>) {
+export async function createProduct(
+  data: z.infer<typeof insertProductSchema>
+): Promise<{ success: boolean; message: string }> {
   try {
     const product = insertProductSchema.parse(data);
     await prisma.product.create({ data: product });
@@ -83,7 +85,9 @@ export async function createProduct(data: z.infer<typeof insertProductSchema>) {
 }
 
 // update a product
-export async function updateProduct(data: z.infer<typeof updateProductSchema>) {
+export async function updateProduct(
+  data: z.infer<typeof updateProductSchema>
+): Promise<{ success: boolean; message: string }> {
   try {
     const product = updateProductSchema.parse(data);
     const productExists = await prisma.product.findFirst({
