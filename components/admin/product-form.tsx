@@ -53,7 +53,7 @@ const ProductForm = ({
     // on create
     if (type === 'Create') {
       const res = await createProduct(values);
-      if (!res) {
+      if (!res.success) {
         toast({
           variant: 'destructive',
           description: res.message,
