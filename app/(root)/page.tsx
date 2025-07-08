@@ -1,5 +1,10 @@
-import ProductList from "@/components/shared/product/product-list";
-import { getLatestProducts } from "@/lib/actions/product.actions";
+import ProductList from '@/components/shared/product/product-list';
+import {
+  getFeaturedProducts,
+  getLatestProducts,
+} from '@/lib/actions/product.actions';
+import ProductCarousel from '@/components/shared/product/product-carousel';
+import ViewAllProductsButton from '@/components/ui/view-all-products-button';
 
 // import sampleData from "@/db/sample-data";
 
@@ -7,16 +12,20 @@ import { getLatestProducts } from "@/lib/actions/product.actions";
 
 const HomePage = async () => {
   const latestProducts = await getLatestProducts();
-
+  const featuredProducts = await getFeaturedProducts();
   // await delay(2000);
   console.log(latestProducts);
   return (
     <>
+      {featuredProducts.length > 0 && (
+        <ProductCarousel data={featuredProducts} />
+      )}
       <ProductList
         data={latestProducts}
         title="Newest Arrtivals"
         limit={4}
       ></ProductList>
+      <ViewAllProductsButton />
     </>
   );
 };
