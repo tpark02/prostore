@@ -8,7 +8,6 @@ import {
   useStripe,
 } from '@stripe/react-stripe-js';
 import { useTheme } from 'next-themes';
-import { fa, tr } from 'zod/v4/locales';
 import { Button } from '@/components/ui/button';
 import { formatCurrency } from '@/lib/utils';
 import { SERVER_URL } from '@/lib/constants';
@@ -28,18 +27,22 @@ const StripePayment = ({
 
   const { theme, systemTheme } = useTheme();
 
-  // stripe form components
+  // Stripe Form Component
   const StripeForm = () => {
     const stripe = useStripe();
     const elements = useElements();
+
     const [isLoading, setIsLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [email, setEmail] = useState('');
+
     const handleSubmit = async (e: FormEvent) => {
       e.preventDefault();
 
-      if (stripe == null || elements == null || email === null) return;
+      if (stripe == null || elements == null || email == null) return;
+
       setIsLoading(true);
+
       stripe
         .confirmPayment({
           elements,
@@ -73,7 +76,7 @@ const StripePayment = ({
         <Button
           className="w-full"
           size="lg"
-          disabled={stripe === null || elements === null || isLoading}
+          disabled={stripe == null || elements == null || isLoading}
         >
           {isLoading
             ? 'Purchasing...'
@@ -92,15 +95,15 @@ const StripePayment = ({
             theme === 'dark'
               ? 'night'
               : theme === 'light'
-              ? 'stripe'
-              : systemTheme === 'light'
-              ? 'stripe'
-              : 'night',
+                ? 'stripe'
+                : systemTheme === 'light'
+                  ? 'stripe'
+                  : 'night',
         },
       }}
       stripe={stripePromise}
     >
-      <StripeForm />{' '}
+      <StripeForm />
     </Elements>
   );
 };
